@@ -1,0 +1,14 @@
+<button (click)="toggleNode()" [disabled]="isLocked">
+  <ng-container *ngTemplateOutlet="treeNodeLabelTemplate || treeNodeLabelDefault; context: { $implicit: node, isOpen: isOpen }"></ng-container>
+</button>
+
+<ng-container *ngIf="isOpen">
+  <div class="children">
+    <tree-node *ngFor="let child of node.children, trackBy: trackBy" [node]="child"></tree-node>
+  </div>
+</ng-container>
+
+<ng-template #treeNodeLabelDefault let-node, isOpen>
+  <span class="arrow" [ngClass]="{'is-open': isOpen}"></span>
+  <span class="label">{{ node.name }}</span>
+  </ng-template>
